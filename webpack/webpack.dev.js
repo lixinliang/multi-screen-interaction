@@ -9,6 +9,11 @@ const entry = require('./webpack.entry.json');
 
 const imageSize = 10240;
 
+let socketPort = 0;
+if (/^--socketPort=/.test(process.argv[process.argv.length-1])) {
+    socketPort = process.argv[process.argv.length-1].split('=')[1];
+}
+
 module.exports = {
     devtool : '#source-map',
     entry,
@@ -50,6 +55,18 @@ module.exports = {
                     presets : ['es2015', 'stage-0'],
                     // plugins : ['transform-remove-strict-mode'],
                     // plugins: ['transform-runtime'],
+                },
+            },
+            {
+                test : /\.js$/,
+                exclude : path.join(__dirname, '../node_modules/'),
+                loader : 'regexp-replace',
+                query : {
+                    match : {
+                      pattern : '@PORT',
+                      flags : 'g',
+                    },
+                    replaceWith : `:${ socketPort }`,
                 },
             },
         ],

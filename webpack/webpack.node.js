@@ -18,8 +18,10 @@ let cmd;
 let start = () => {
     let task = process.argv[2].substring(1);
     if (task == 'dev') {
-        cmd = `webpack-dev-server --inline --quiet --devtool eval --progress --colors --content-base ./src/ --hot --config ./webpack/webpack.dev.js --host 0.0.0.0 --port ${ port }`;
-        step9().then(step3).then(step4).catch(( err ) => {
+        cmd = `node ./server/app.js --color ${ socketPort }`;
+        step3().then(step9).then(() => {
+            cmd = `webpack-dev-server --inline --quiet --devtool eval --progress --colors --content-base ./src/ --hot --config ./webpack/webpack.dev.js --host 0.0.0.0 --port ${ port } --socketPort=${ socketPort }`;
+        }).then(step9).catch(( err ) => {
             if (/listen EADDRINUSE/.test(err.toString())) {
                 console.log(`\n${ port } is aleary in use. Ctrl+C to leave or input a PID to kill：`.green);
                 cmd = `lsof -i tcp:${ port }`;
@@ -251,11 +253,11 @@ let step8 = ( filepath ) => new Promise(( resolve, reject ) => {
 });
 
 /**
- * [step9] Run socket server
- * @return {Promise} run_socket_server_success
+ * [step9] shell.exec -- Exec command async
+ * @return {Promise} exec_command_success
  */
 let step9 = () => new Promise(( resolve ) => {
-    shell.exec(`node ./server/app.js ${ socketPort }`, { async : true });
+    let child = shell.exec(cmd, { async : true });
     resolve();
 });
 
