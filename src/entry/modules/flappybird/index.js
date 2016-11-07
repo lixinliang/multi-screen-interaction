@@ -96,17 +96,21 @@ function flappybird() {
     }
 
     function calculator(){
-        // if(bird.by+bird.bheight>ground.bgy ||
-        //     ((bird.bx+bird.bwidth>up_pipe.px)&&(bird.by>up_pipe.py)&&(bird.bx+bird.bwidth<up_pipe.px+up_pipe.pwidth)&&( bird.by<up_pipe.py+up_pipe.pheight))||
-        //     ((bird.bx+bird.bwidth>up_pipe.px)&&(bird.by>up_pipe.py)&&(bird.bx+bird.bwidth<up_pipe.px+up_pipe.pwidth)&&( bird.by<up_pipe.py+up_pipe.pheight))||
-        //     ((bird.bx>down_pipe.px)&&(bird.by>down_pipe.py)&&(bird.bx<down_pipe.px+down_pipe.pwidth)&&(bird.by<down_pipe.py+down_pipe.pheight))||
-        //     ((bird.bx>down_pipe.px)&&(bird.by+bird.bheight>down_pipe.py)&&(bird.bx<down_pipe.px+down_pipe.pwidth)&&(bird.by+bird.bheight<down_pipe.py+down_pipe.pheight))){
-        //     clearInterval(tid);
-        //     ctx.fillStyle = "rgb(255,255,255)";
-        //     ctx.font = "30px Accent";
-        //     ctx.fillText("You got "+score+"!",110,100)
-        //     return;
-        // }
+
+        // Prevent gameover when the bird in a crash.
+        // Comments start
+        if(bird.by+bird.bheight>ground.bgy ||
+            ((bird.bx+bird.bwidth>up_pipe.px)&&(bird.by>up_pipe.py)&&(bird.bx+bird.bwidth<up_pipe.px+up_pipe.pwidth)&&( bird.by<up_pipe.py+up_pipe.pheight))||
+            ((bird.bx+bird.bwidth>up_pipe.px)&&(bird.by>up_pipe.py)&&(bird.bx+bird.bwidth<up_pipe.px+up_pipe.pwidth)&&( bird.by<up_pipe.py+up_pipe.pheight))||
+            ((bird.bx>down_pipe.px)&&(bird.by>down_pipe.py)&&(bird.bx<down_pipe.px+down_pipe.pwidth)&&(bird.by<down_pipe.py+down_pipe.pheight))||
+            ((bird.bx>down_pipe.px)&&(bird.by+bird.bheight>down_pipe.py)&&(bird.bx<down_pipe.px+down_pipe.pwidth)&&(bird.by+bird.bheight<down_pipe.py+down_pipe.pheight))){
+            clearInterval(tid);
+            ctx.fillStyle = "rgb(255,255,255)";
+            ctx.font = "30px Accent";
+            ctx.fillText("You got "+score+"!",110,100)
+            return;
+        }
+        // Comments end
 
         ver2 = ver1+gravity;
         bird.by += (ver2+ver1)*0.5;

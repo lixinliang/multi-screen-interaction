@@ -1,7 +1,7 @@
 {
   "name": "multi-screen-interaction",
   "version": "0.0.1",
-  "description": "none",
+  "description": "🎮Play a game cross screen.",
   "main": "",
   "scripts": {
     "dev": "node ./webpack/webpack.node.js -dev",
