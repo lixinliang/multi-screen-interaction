@@ -1,5 +1,5 @@
 # multi-screen-interaction
-> 🎮Play a game cross screen.
+> 🎮 Play a game cross screen.
 
 # Quick look
 
@@ -17,3 +17,7 @@
 # How it works
 
 * In between the pc page and the mobile page, use socket to build communication.
+
+# License
+
+MIT
