@@ -17,6 +17,9 @@ $(() => {
     */
     socket.emit('create', ['gamepad:touch'], function ( uid ) {
 
+        const url = `${ gamepad }?uid=${ uid }`;
+        console.log(url);
+
         /**
          * Create Qrcode, base on uid
          */
@@ -24,7 +27,7 @@ $(() => {
             width : 200,
             height : 200,
             correctLevel : 0,
-            text : `${ gamepad }?uid=${ uid }`,
+            text : url,
         });
 
         /**
