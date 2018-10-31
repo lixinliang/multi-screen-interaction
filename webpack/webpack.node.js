@@ -15,12 +15,20 @@ const outputPath = path.join(__dirname, '../dist');
 
 let cmd;
 
+let host = '0.0.0.0'
+
+try {
+    host = require('os').networkInterfaces().en0[1].address
+} catch (error) {
+    
+}
+
 let start = () => {
     let task = process.argv[2].substring(1);
     if (task == 'dev') {
         cmd = `node ./server/app.js --color ${ socketPort }`;
         step3().then(step9).then(() => {
-            cmd = `webpack-dev-server --inline --quiet --devtool eval --progress --colors --content-base ./src/ --hot --config ./webpack/webpack.dev.js --host 0.0.0.0 --port ${ port } --socketPort=${ socketPort }`;
+            cmd = `webpack-dev-server --inline --quiet --devtool eval --progress --colors --content-base ./src/ --hot --config ./webpack/webpack.dev.js --host ${ host } --port ${ port } --socketPort=${ socketPort }`;
         }).then(step9).catch(( err ) => {
             if (/listen EADDRINUSE/.test(err.toString())) {
                 console.log(`\n${ port } is aleary in use. Ctrl+C to leave or input a PID to kill：`.green);
